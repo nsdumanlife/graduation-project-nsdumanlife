@@ -26,6 +26,19 @@ class User {
     bungalov.bookings.push(booking)
   }
 
+  get profile() {
+    return `
+      ##Name: ${this.name}
+      ${this.bungalovs.length > 0 ? `Bungalovs: ${this.bungalovs.map(bungalov => bungalov.name).join(', ')}` : ''}
+      ##Bookings:
+        ${this.bookings
+          .map(
+            booking =>
+              `- ${booking.bungalov.name}  -  ${booking.checkInDate} - ${booking.checkOutDate} ${booking.duration} nights - $${booking.totalPrice}`
+          )
+          .join(',\n\t')}
+      `
+  }
 
   createBungalov(name, price, location) {
     const bungalov = new Bungalov(name, price, location, this)
