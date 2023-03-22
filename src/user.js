@@ -10,6 +10,14 @@ class User {
   }
 
   book(bungalov, checkInDate, checkOutDate) {
+    const checkInDateAsDate = new Date(checkInDate)
+    const checkOutDateAsDate = new Date(checkOutDate)
+
+    // check dates
+    if (checkInDateAsDate >= checkOutDateAsDate) throw new Error('Check in date must be before check out date')
+    if (checkInDateAsDate < new Date()) throw new Error('Check in date must be in the future')
+    if (checkOutDateAsDate < new Date()) throw new Error('Check out date must be in the future')
+
     if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
 
     const booking = new Booking(this, bungalov, checkInDate, checkOutDate)
