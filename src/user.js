@@ -10,6 +10,7 @@ class User {
   }
 
   book(bungalov, checkInDate, checkOutDate) {
+    if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
 
     const booking = new Booking(this, bungalov, checkInDate, checkOutDate)
 
