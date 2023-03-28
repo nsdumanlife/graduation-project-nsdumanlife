@@ -1,5 +1,6 @@
 class Bungalov {
   bookings = []
+  reviews = []
 
   constructor(name, price, location, owner) {
     this.name = name

@@ -1,4 +1,6 @@
 class Booking {
+  review = null
+
   constructor(user, bungalov, checkInDate, checkOutDate) {
     this.user = user
     this.bungalov = bungalov
@@ -15,6 +17,10 @@ class Booking {
 
   get totalPrice() {
     return this.duration * this.bungalov.price
+  }
+
+  get isReviewed() {
+    return this.review !== null
   }
 }
 

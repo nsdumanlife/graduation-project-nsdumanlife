@@ -1,5 +1,6 @@
 const Booking = require('./booking')
 const Bungalov = require('./bungalov')
+const Review = require('./review')
 
 class User {
   bookings = []
@@ -24,6 +25,8 @@ class User {
 
     this.bookings.push(booking)
     bungalov.bookings.push(booking)
+
+    return booking
   }
 
   get profile() {
@@ -53,6 +56,27 @@ class User {
 
     const bungalovBookingIndex = booking.bungalov.bookings.indexOf(booking)
     booking.bungalov.bookings.splice(bungalovBookingIndex, 1)
+  }
+
+  review(booking, rating, comment) {
+    //check if booking is not reviewed
+    if (booking.isReviewed) throw new Error('You cannot review a booking that is already reviewed')
+
+    //check if booking is in this.bookings
+    if (!this.bookings.includes(booking)) throw new Error('You cannot review a booking that is not yours')
+
+    //check if rating is between 1 and 5
+    if (rating < 1 || rating > 5) throw new Error('Rating must be between 1 and 5')
+
+    //check if comment is not empty
+    if (comment === '') throw new Error('Comment cannot be empty')
+
+    const review = new Review(booking, rating, comment, this)
+
+    booking.review = review
+    booking.bungalov.reviews.push(review)
+
+    return booking
   }
 }
 
