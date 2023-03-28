@@ -48,4 +48,11 @@ class Review {
   constructor(author: User, bungalov: Bungalov, rating: number, comment: string)
 }
 
+User -- Bungalov
+Booking -o Bungalov
+Booking o-- User
+Review -* Bungalov
+User o-- Review
+
+
 @enduml
