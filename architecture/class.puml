@@ -1,6 +1,51 @@
-@startuml Person 
-class Person {
+@startuml Bungalov Booking App
+
+class User {
   name: string
-  age: number
+  bookings: Booking[]
+  bungalovs: Bungalov[]
+
+  get profile()
+  constructor(name: string)
+  book(bungalov: Bungalov, checkInDate: String, checkOutDate: String)
+  cancelBooking(booking: Booking)
+  createBungalov(name: string, price: number, location: string)
+  review(booking: Booking, rating: number, comment: string)
 }
+
+class Bungalov {
+  name: string
+  price: number
+  location: string
+  owner: User
+  bookings: Booking[]
+  reviwes: Review[]
+
+  constructor(name: string, price: number, location: string, owner: User)
+  isAvailable(checkInDate: String, checkOutDate: String)
+}
+
+class Booking {
+  user: User
+  bungalov: Bungalov
+  checkInDate: String
+  checkOutDate: String
+  review: Review
+
+  get duration()
+  get totalPrice()
+  get isReviewed()
+  constructor(user: User, bungalov: Bungalov, checkInDate: String, checkOutDate: String)
+}
+
+class Review {
+  author: User
+  bungalov: Bungalov
+  rating: number
+  comment: string
+  createdAt: Date
+
+  constructor(author: User, bungalov: Bungalov, rating: number, comment: string)
+}
+
 @enduml
