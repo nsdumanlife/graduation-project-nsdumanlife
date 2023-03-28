@@ -9,6 +9,11 @@ class Bungalov {
     this.owner = owner
   }
 
+  get avarageRating() {
+    const totalRating = this.reviews.reduce((total, review) => total + review.rating, 0)
+    return totalRating / this.reviews.length
+  }
+
   isAvailable(checkInDate, checkOutDate) {
     const checkInDateAsDate = new Date(checkInDate)
     const checkOutDateAsDate = new Date(checkOutDate)
