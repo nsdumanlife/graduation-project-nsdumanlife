@@ -29,7 +29,8 @@ async function main() {
   // console.log('updated: ', allUsers2.data)
 
   //create a bungalov for a user
-  const armagansBungalov = await axios.post('/users/Armagan/bungalovs', {
+  const armagansBungalov = await axios.post('/bungalovs', {
+    user: 'Armagan',
     name: 'Armagans Bungalov',
     price: 100,
     location: 'Istanbul',
