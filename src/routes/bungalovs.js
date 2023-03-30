@@ -6,11 +6,7 @@ const User = require('../models/user')
 
 /* GET bungalovs list. */
 router.get('/', function (req, res, next) {
-  res.send(
-    Bungalov.list
-      .map(bungalov => ({ name: bungalov.name, price: bungalov.price, location: bungalov.location }))
-      .join('\n\n')
-  )
+  res.send(Bungalov.list.map(bungalov => `${bungalov.name}`).join('\n'))
 })
 
 /* POST create a bungalov. */
