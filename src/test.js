@@ -3,31 +3,33 @@ const Booking = require('./models/booking')
 
 const axios = require('axios')
 
+axios.defaults.baseURL = 'http://localhost:3000'
+
 console.log('Bungaa is a booking bungalov app')
 
 async function main() {
-  const numan = await axios.post('http://localhost:3000/users', {
+  const numan = await axios.post('/users', {
     name: 'Numan',
   })
 
-  const armagan = await axios.post('http://localhost:3000/users', {
+  const armagan = await axios.post('/users', {
     name: 'Armagan',
   })
 
   // console.log('armagan: ', armagan.data)
   // console.log('numan: ', numan.data)
 
-  const allUsers = await axios.get('http://localhost:3000/users')
+  const allUsers = await axios.get('/users')
   // console.log('first place: ', allUsers.data)
 
   // delete user Numan
-  await axios.delete(`http://localhost:3000/users/Numan`)
+  await axios.delete(`/users/Numan`)
 
-  const allUsers2 = await axios.get('http://localhost:3000/users')
+  const allUsers2 = await axios.get('/users')
   // console.log('updated: ', allUsers2.data)
 
   //create a bungalov for a user
-  const armagansBungalov = await axios.post('http://localhost:3000/users/Armagan/bungalovs', {
+  const armagansBungalov = await axios.post('/users/Armagan/bungalovs', {
     name: 'Armagans Bungalov',
     price: 100,
     location: 'Istanbul',
@@ -36,7 +38,7 @@ async function main() {
   console.log('armagans bungalov: ', armagansBungalov.data)
 
   //get all bungalovs with axios
-  const allBungalovs = await axios.get('http://localhost:3000/bungalovs')
+  const allBungalovs = await axios.get('/bungalovs')
   console.log('all bungalovs: ', allBungalovs.data)
 }
 
