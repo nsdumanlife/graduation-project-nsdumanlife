@@ -25,6 +25,15 @@ class Bungalov {
       return checkInDateAsDate >= bookingCheckOutDateAsDate || checkOutDateAsDate <= bookingCheckInDateAsDate
     })
   }
+
+  static create(name, price, location, owner) {
+    const bungalov = new Bungalov(name, price, location, owner)
+    Bungalov.list.push(bungalov)
+
+    return bungalov
+  }
+
+  static list = []
 }
 
 module.exports = Bungalov

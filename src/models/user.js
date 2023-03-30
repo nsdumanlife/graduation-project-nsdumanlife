@@ -44,7 +44,7 @@ class User {
   }
 
   createBungalov(name, price, location) {
-    const bungalov = new Bungalov(name, price, location, this)
+    const bungalov = Bungalov.create(name, price, location, this)
     this.bungalovs.push(bungalov)
 
     return bungalov
@@ -78,6 +78,15 @@ class User {
 
     return booking
   }
+
+  static create(name) {
+    const user = new User(name)
+    User.list.push(user)
+
+    return user
+  }
+
+  static list = []
 }
 
 module.exports = User
