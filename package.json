@@ -1,8 +1,14 @@
 {
-	"name": "template-node",
+	"name": "bungaa",
 	"version": "0.0.0",
 	"private": true,
-	"description": "Node + PlantUML Starter Template",
+	"description": "Bungalov booking app",
+	"url": "",
+	"author": {
+		"name": "Numan Selman Duman",
+		"email": "numanselmanduman@gmail.com",
+		"url": "https://github.com/nsdumanlife"
+	},
 	"license": "MIT",
 	"scripts": {
 		"start": "node ./bin/www",
