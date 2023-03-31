@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  h3= bungalov.name
+  p= bungalov.location
+  p #{bungalov.price} € per night
+  p= bungalov.rating
+  .reviews
+    h3 Reviews of #{bungalov.name}
+    if bungalov.reviews.length > 0
+      each review in bungalov.reviews
+        ul
+          li #{review.text}
+          p Rating: #{review.rating} - #{review.author.name}
+          p #{review.createdAt}
+    else
+      p No reviews yet

@@ -24,7 +24,10 @@ router.get('/:bungalovName', function (req, res, next) {
 
   if (!bungalov) return res.status(404).send('Bungalov not found')
 
-  res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
+  if (req.query.view === 'json')
+    return res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
+
+  res.render('bungalov-detail', { bungalov })
 })
 
 // create a bungalov
