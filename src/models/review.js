@@ -1,10 +1,10 @@
 class Review {
   createdAt = new Date()
 
-  constructor(bungalov, rating, comment, author) {
+  constructor(bungalov, rating, text, author) {
     this.bungalov = bungalov
     this.rating = rating
-    this.comment = comment
+    this.text = text
     this.author = author
   }
 }
