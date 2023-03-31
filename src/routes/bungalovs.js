@@ -39,4 +39,16 @@ router.post('/', function (req, res, next) {
   res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
 })
 
+// delete a bungalov
+router.delete('/:bungalovName', function (req, res, next) {
+  const bungalov = Bungalov.list.find(bungalov => bungalov.name === req.params.bungalovName)
+
+  if (!bungalov) return res.status(404).send('Bungalov not found')
+
+  const bungalovIndex = Bungalov.list.indexOf(bungalov)
+  Bungalov.list.splice(bungalovIndex, 1)
+
+  res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
+})
+
 module.exports = router
