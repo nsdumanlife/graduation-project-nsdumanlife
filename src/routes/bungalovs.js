@@ -6,7 +6,16 @@ const User = require('../models/user')
 
 /* GET bungalovs list. */
 router.get('/', function (req, res, next) {
-  res.send(Bungalov.list.map(bungalov => `${bungalov.name}`).join('\n'))
+  if (req.query.view === 'json')
+    return res.send(
+      Bungalov.list.map(bungalov => ({
+        name: bungalov.name,
+        price: bungalov.price,
+        location: bungalov.location,
+      }))
+    )
+
+  res.render('bungalovs', { bungalovs: Bungalov.list })
 })
 
 // get a bungalov
