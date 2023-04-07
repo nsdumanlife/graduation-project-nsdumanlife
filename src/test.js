@@ -1,7 +1,7 @@
+const axios = require('axios')
+
 const User = require('./models/user')
 const Booking = require('./models/booking')
-
-const axios = require('axios')
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
@@ -16,34 +16,50 @@ async function main() {
     name: 'Armagan',
   })
 
-  // console.log('armagan: ', armagan.data)
-  // console.log('numan: ', numan.data)
-
   const allUsers = await axios.get('/users')
-  // console.log('first place: ', allUsers.data)
+  // console.log('all users: ', allUsers.data)
+
+  const getUser = await axios.get(`/users/${numan.data._id}`)
+  // console.log('get user: ', getUser.data)
 
   // delete user Numan
-  await axios.delete(`/users/Numan`)
+  // await axios.delete(`/users/${numan.data._id}`)
 
-  const allUsers2 = await axios.get('/users')
-  // console.log('updated: ', allUsers2.data)
-
-  //create a bungalov for a user
-  const armagansBungalov = await axios.post('/bungalovs', {
-    user: 'Armagan',
-    name: 'Armagans Bungalov',
+  // //create a bungalov for a user
+  await axios.post('/bungalovs', {
+    user: armagan.data._id,
+    name: 'ArmagansBungalov',
     price: 100,
     location: 'Istanbul',
   })
+  // // console.log('armagans bungalov: ', armagansBungalov.data)
 
-  console.log('armagans bungalov: ', armagansBungalov.data)
+  await axios.post('/bungalovs', {
+    user: armagan.data._id,
+    name: 'ArmagansBungalov2',
+    price: 150,
+    location: 'Sakarya',
+  })
+  const armagansBungalov = await axios.post('/bungalovs', {
+    user: armagan.data._id,
+    name: 'ArmagansBungalov3',
+    price: 200,
+    location: 'Tekirdag',
+  })
+  const willBeDeleted = await axios.post('/bungalovs', {
+    user: armagan.data._id,
+    name: 'willBeDeleted',
+    price: 1000,
+    location: 'Mugla',
+  })
 
-  //get all bungalovs with axios
-  const allBungalovs = await axios.get('/bungalovs')
-  console.log('all bungalovs: ', allBungalovs.data)
+  // delete a bungalov with named willBeDeleted
+  await axios.delete(`/bungalovs/${willBeDeleted.data._id}`)
+
+  // create a booking for a user
 }
 
-main()
+main().catch(console.error)
 
 // X  I need 3 main objects User, Bungalov, Booking
 // X  User: name, bungalovs, bookings
