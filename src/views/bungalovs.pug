@@ -7,6 +7,6 @@ block content
   ul#bungalovs
     each bungalov in bungalovs
       .bungalov
-        a(href="/bungalovs/" + bungalov.name)
+        a(href=`/bungalovs/${bungalov._id}`)
           li= bungalov.name
           p #{bungalov.location} - #{bungalov.price}€ per night
