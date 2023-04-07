@@ -5,34 +5,28 @@ const Bungalov = require('../models/bungalov')
 const User = require('../models/user')
 
 /* GET bungalovs list. */
-router.get('/', function (req, res, next) {
-  if (req.query.view === 'json')
-    return res.send(
-      Bungalov.list.map(bungalov => ({
-        name: bungalov.name,
-        price: bungalov.price,
-        location: bungalov.location,
-      }))
-    )
+router.get('/', async function (req, res, next) {
+  const bungalovs = await Bungalov.find()
 
-  res.render('bungalovs', { bungalovs: Bungalov.list })
+  if (req.query.view === 'json') res.send(bungalovs)
+
+  res.render('bungalovs', { bungalovs })
 })
 
 // get a bungalov
-router.get('/:bungalovName', function (req, res, next) {
-  const bungalov = Bungalov.list.find(bungalov => bungalov.name === req.params.bungalovName)
+router.get('/:bungalovId', async function (req, res, next) {
+  const bungalov = await Bungalov.findById(req.params.bungalovId)
 
   if (!bungalov) return res.status(404).send('Bungalov not found')
 
-  if (req.query.view === 'json')
-    return res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
+  if (req.query.view === 'json') return res.send(bungalov)
 
   res.render('bungalov-detail', { bungalov })
 })
 
 // create a bungalov
 router.post('/', async function (req, res, next) {
-  const user = await User.findById({ _id: req.body.user })
+  const user = await User.findById(req.body.user)
 
   const bungalov = await user.createBungalov(req.body.name, req.body.price, req.body.location)
 
