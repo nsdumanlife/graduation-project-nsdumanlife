@@ -1,0 +1,9 @@
+extends layout
+
+block content
+
+  h3 Bookings of #{user.name}
+
+  ul
+    each booking in user.bookings
+      li= booking.bungalov
