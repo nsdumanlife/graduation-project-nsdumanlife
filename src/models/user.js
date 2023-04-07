@@ -2,14 +2,32 @@ const Booking = require('./booking')
 const Bungalov = require('./bungalov')
 const Review = require('./review')
 
+const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
+
+const userSchema = new mongoose.Schema({
+  name: String,
+  bookings: [
+    // {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'Booking',
+    //   autopopulate: {
+    //     maxDepth: 1,
+    //   },
+    // },
+  ],
+  bungalovs: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Bungalov',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
+  ],
+})
+
 class User {
-  bookings = []
-  bungalovs = []
-
-  constructor(name) {
-    this.name = name
-  }
-
   book(bungalov, checkInDate, checkOutDate) {
     const checkInDateAsDate = new Date(checkInDate)
     const checkOutDateAsDate = new Date(checkOutDate)
@@ -43,9 +61,11 @@ class User {
       `
   }
 
-  createBungalov(name, price, location) {
-    const bungalov = Bungalov.create(name, price, location, this)
+  async createBungalov(name, price, location) {
+    const bungalov = await Bungalov.create({ name: name, price: price, location: location, owner: this })
     this.bungalovs.push(bungalov)
+
+    await this.save()
 
     return bungalov
   }
@@ -78,15 +98,9 @@ class User {
 
     return booking
   }
-
-  static create(name) {
-    const user = new User(name)
-    User.list.push(user)
-
-    return user
-  }
-
-  static list = []
 }
 
-module.exports = User
+userSchema.plugin(autopopulate)
+userSchema.loadClass(User)
+
+module.exports = mongoose.model('User', userSchema)
