@@ -4,29 +4,33 @@ const router = express.Router()
 const User = require('../models/user')
 
 /* GET users listing. */
-router.get('/', function (req, res, next) {
-  res.send(User.list.map(user => user.profile).join('\n\n'))
+router.get('/', async function (req, res, next) {
+  res.send(await User.find())
+})
+
+// get a user
+router.get('/:userId', async function (req, res, next) {
+  const user = await User.findById({ _id: req.params.userId })
+
+  if (!user) throw new Error('User not found')
+
+  res.send(user)
 })
 
 // create a user with a name
-router.post('/', function (req, res, next) {
-  const { name } = req.body
-  const user = User.create(name)
+router.post('/', async function (req, res, next) {
+  const user = await User.create({ name: req.body.name })
 
   res.send(user)
 })
 
 //delete a user
-router.delete('/:userId', function (req, res, next) {
-  const { userId } = req.params
-  const user = User.list.find(user => user.name === userId)
+router.delete('/:userId', async function (req, res, next) {
+  const user = await User.findByIdAndDelete({ _id: req.params.userId })
 
   if (!user) throw new Error('User not found')
 
-  const userIndex = User.list.indexOf(user)
-  User.list.splice(userIndex, 1)
-
-  res.send(user)
+  res.sendStatus(200)
 })
 
 module.exports = router
