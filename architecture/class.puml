@@ -49,10 +49,10 @@ class Review {
   constructor(author: User, bungalov: Bungalov, rating: number, comment: string)
 }
 
-User -- Bungalov
-Booking -o Bungalov
-Booking o-- User
-Review -* Bungalov
+User --* Bungalov
+Booking --* Bungalov
+Booking --* User
+Review -o Bungalov
 User o-- Review
 
 
