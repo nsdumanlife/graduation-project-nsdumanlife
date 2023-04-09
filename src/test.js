@@ -57,6 +57,30 @@ async function main() {
   await axios.delete(`/bungalovs/${willBeDeleted.data._id}`)
 
   // create a booking for a user
+  const numansBooking = await axios.post(`/bookings`, {
+    user: numan.data._id,
+    bungalov: armagansBungalov.data._id,
+    checkInDate: '2024-01-01',
+    checkOutDate: '2024-01-07',
+  })
+
+  const armagansBooking = await axios.post(`/bookings/`, {
+    user: armagan.data._id,
+    bungalov: armagansBungalov.data._id,
+    checkInDate: '2024-01-08',
+    checkOutDate: '2024-01-10',
+  })
+  console.log('armagansBooking: ', armagansBooking.data)
+
+  // cancel a booking for a user
+  await axios.delete(`/bookings/${numansBooking.data._id}`)
+
+  // update a booking for a user
+  const updatedArmagansBooking = await axios.put(`/bookings/${armagansBooking.data._id}`, {
+    checkInDate: '2024-01-11',
+    checkOutDate: '2024-01-13',
+  })
+  console.log('updated armagansBooking: ', updatedArmagansBooking.data)
 }
 
 main().catch(console.error)
