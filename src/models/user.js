@@ -8,13 +8,13 @@ const autopopulate = require('mongoose-autopopulate')
 const userSchema = new mongoose.Schema({
   name: String,
   bookings: [
-    // {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Booking',
-    //   autopopulate: {
-    //     maxDepth: 1,
-    //   },
-    // },
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Booking',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
   ],
   bungalovs: [
     {
@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema({
 })
 
 class User {
-  book(bungalov, checkInDate, checkOutDate) {
+  async book(bungalov, checkInDate, checkOutDate) {
     const checkInDateAsDate = new Date(checkInDate)
     const checkOutDateAsDate = new Date(checkOutDate)
 
@@ -37,12 +37,20 @@ class User {
     if (checkInDateAsDate < new Date()) throw new Error('Check in date must be in the future')
     if (checkOutDateAsDate < new Date()) throw new Error('Check out date must be in the future')
 
-    if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
+    // if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
 
-    const booking = new Booking(this, bungalov, checkInDate, checkOutDate)
+    const booking = await Booking.create({
+      user: this,
+      bungalov: bungalov,
+      checkInDate: checkInDateAsDate,
+      checkOutDate: checkOutDateAsDate,
+    })
 
     this.bookings.push(booking)
     bungalov.bookings.push(booking)
+
+    await this.save()
+    await bungalov.save()
 
     return booking
   }
@@ -70,12 +78,25 @@ class User {
     return bungalov
   }
 
-  cancelBooking(booking) {
-    const bookingIndex = this.bookings.indexOf(booking)
-    this.bookings.splice(bookingIndex, 1)
+  async cancelBooking(booking) {
+    //check if booking is in this.bookings
+    if (!this === booking.user) throw new Error('You cannot cancel a booking that is not yours')
 
+    // cancel booking
+    await Booking.findByIdAndDelete(booking._id)
+
+    // remove booking from user
+    const userBookingIndex = this.bookings.indexOf(booking)
+    this.bookings.splice(userBookingIndex, 1)
+
+    // remove booking from bungalov
     const bungalovBookingIndex = booking.bungalov.bookings.indexOf(booking)
     booking.bungalov.bookings.splice(bungalovBookingIndex, 1)
+
+    await this.save()
+    await booking.bungalov.save()
+
+    return booking
   }
 
   review(booking, rating, comment) {
