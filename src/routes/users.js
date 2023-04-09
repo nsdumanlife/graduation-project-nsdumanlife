@@ -10,7 +10,7 @@ router.get('/', async function (req, res, next) {
 
 // get a user
 router.get('/:userId', async function (req, res, next) {
-  const user = await User.findById({ _id: req.params.userId })
+  const user = await User.findById(req.params.userId)
 
   if (!user) throw new Error('User not found')
 
@@ -25,12 +25,16 @@ router.post('/', async function (req, res, next) {
 })
 
 //delete a user
+// TODO: delete a user's bungalovs and bookings
+// what happens if user's bungalovs have bookings?
 router.delete('/:userId', async function (req, res, next) {
-  const user = await User.findByIdAndDelete({ _id: req.params.userId })
+  const user = await User.findByIdAndDelete(req.params.userId)
 
   if (!user) throw new Error('User not found')
 
   res.sendStatus(200)
 })
+
+// TODO: update a user
 
 module.exports = router
