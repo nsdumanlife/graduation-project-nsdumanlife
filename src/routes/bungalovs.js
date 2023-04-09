@@ -34,6 +34,12 @@ router.post('/', async function (req, res, next) {
 })
 
 // delete a bungalov
+// TODO: delete all bookings for this bungalov
+// TODO: delete all reviews for this bungalov
+// TODO: delete all images for this bungalov
+// TODO: delete all amenities for this bungalov
+// TODO: delete all rules for this bungalov
+// TODO: delete all facilities for this bungalov
 router.delete('/:bungalovId', async function (req, res, next) {
   const bungalov = await Bungalov.findByIdAndDelete(req.params.bungalovId)
 
@@ -54,22 +60,5 @@ router.delete('/:bungalovId', async function (req, res, next) {
 
 //   res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
 // })
-
-// create a booking for a bungalov
-router.post('/:bungalovID/bookings', function (req, res, next) {
-  const bungalov = Bungalov.list.find(bungalov => bungalov.name === req.params.bungalovID)
-
-  if (!bungalov) return res.status(404).send('Bungalov not found')
-
-  const user = User.list.find(user => user.name === req.body.user)
-
-  const booking = user.book(bungalov, req.body.checkInDate, req.body.checkOutDate)
-
-  res.send({
-    bungalov: booking.bungalov.name,
-    checkInDate: booking.checkInDate,
-    checkOutDate: booking.checkOutDate,
-  })
-})
 
 module.exports = router
