@@ -49,16 +49,18 @@ router.delete('/:bungalovId', async function (req, res, next) {
 })
 
 // update a bungalov
-// router.put('/:bungalovName', function (req, res, next) {
-//   const bungalov = Bungalov.list.find(bungalov => bungalov.name === req.params.bungalovName)
+router.put('/:bungalovId', async function (req, res, next) {
+  const updatedBungalov = await Bungalov.findByIdAndUpdate(
+    req.params.bungalovId,
+    {
+      name: req.body.name,
+      price: req.body.price,
+      location: req.body.location,
+    },
+    { new: true }
+  )
 
-//   if (!bungalov) return res.status(404).send('Bungalov not found')
-
-//   bungalov.name = req.body.name
-//   bungalov.price = req.body.price
-//   bungalov.location = req.body.location
-
-//   res.send({ name: bungalov.name, price: bungalov.price, location: bungalov.location })
-// })
+  res.send(updatedBungalov)
+})
 
 module.exports = router
