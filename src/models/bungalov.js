@@ -13,22 +13,22 @@ const bungalovSchema = new mongoose.Schema({
     },
   },
   bookings: [
-    // {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Booking',
-    //   autopopulate: {
-    //     maxDepth: 1,
-    //   },
-    // },
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Booking',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
   ],
   reviews: [
-    // {
-    //   type: mongoose.Schema.Types.ObjectId,
-    //   ref: 'Review',
-    //   autopopulate: {
-    //     maxDepth: 1,
-    //   },
-    // },
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
   ],
 })
 
