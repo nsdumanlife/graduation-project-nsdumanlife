@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const autopopulate = require('mongoose-autopopulate')
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -29,5 +30,8 @@ const reviewSchema = new mongoose.Schema(
 )
 
 class Review {}
+
+reviewSchema.loadClass(Review)
+reviewSchema.plugin(autopopulate)
 
 module.exports = mongoose.model('Review', reviewSchema)
