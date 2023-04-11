@@ -2,12 +2,19 @@ const axios = require('axios')
 
 const User = require('./models/user')
 const Booking = require('./models/booking')
+const Review = require('./models/review')
+const Bungalov = require('./models/bungalov')
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
 console.log('Bungaa is a booking bungalov app')
 
 async function main() {
+  // await User.deleteMany()
+  // await Bungalov.deleteMany()
+  // await Booking.deleteMany()
+  // await Review.deleteMany()
+
   const numan = await axios.post('/users', {
     name: 'Numan',
   })
@@ -16,24 +23,26 @@ async function main() {
     name: 'Armagan',
   })
 
+  const willBeDeletedUser = await axios.post('/users', {
+    name: 'willBeDeletedUserName',
+  })
+
   const allUsers = await axios.get('/users')
   // console.log('all users: ', allUsers.data)
 
   const getUser = await axios.get(`/users/${numan.data._id}`)
   // console.log('get user: ', getUser.data)
 
-  // delete user Numan
-  // await axios.delete(`/users/${numan.data._id}`)
+  // delete user willBeDeletedUser
+  await axios.delete(`/users/${willBeDeletedUser.data._id}`)
 
-  // //create a bungalov for a user
+  //create a bungalov for a user
   await axios.post('/bungalovs', {
     user: armagan.data._id,
     name: 'ArmagansBungalov',
     price: 100,
     location: 'Istanbul',
   })
-  // // console.log('armagans bungalov: ', armagansBungalov.data)
-
   await axios.post('/bungalovs', {
     user: armagan.data._id,
     name: 'ArmagansBungalov2',
@@ -70,7 +79,7 @@ async function main() {
     checkInDate: '2024-01-08',
     checkOutDate: '2024-01-10',
   })
-  console.log('armagansBooking: ', armagansBooking.data)
+  // console.log('armagansBooking: ', armagansBooking.data)
 
   // cancel a booking for a user
   await axios.delete(`/bookings/${numansBooking.data._id}`)
@@ -80,7 +89,20 @@ async function main() {
     checkInDate: '2024-01-11',
     checkOutDate: '2024-01-13',
   })
-  console.log('updated armagansBooking: ', updatedArmagansBooking.data)
+  // console.log('updated armagansBooking: ', updatedArmagansBooking.data)
+
+  // update a bungalov for a user
+  const updatedArmagansBungalov = await axios.put(`/bungalovs/${armagansBungalov.data._id}`, {
+    price: 300,
+  })
+
+  // throws error brcause of booking is not completed, so keep it commented
+  // const firstReview = await axios.post('/reviews', {
+  //   user: armagan.data._id,
+  //   booking: armagansBooking.data._id,
+  //   rating: 5,
+  //   text: 'This is a great bungalov',
+  // })
 }
 
 main().catch(console.error)
