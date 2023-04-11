@@ -13,7 +13,7 @@ const bookingSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Bungalov',
     autopopulate: {
-      maxDepth: 1,
+      maxDepth: 2,
     },
   },
   checkInDate: Date,
@@ -24,6 +24,14 @@ const bookingSchema = new mongoose.Schema({
     autopopulate: {
       maxDepth: 1,
     },
+  },
+  review: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Review',
+    autopopulate: {
+      maxDepth: 1,
+    },
+    default: null,
   },
 })
 
