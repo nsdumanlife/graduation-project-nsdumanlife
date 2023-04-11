@@ -9,7 +9,7 @@ const bungalovSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     autopopulate: {
-      maxDepth: 1,
+      maxDepth: 2,
     },
   },
   bookings: [
@@ -17,7 +17,7 @@ const bungalovSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Booking',
       autopopulate: {
-        maxDepth: 1,
+        maxDepth: 2,
       },
     },
   ],
@@ -26,7 +26,7 @@ const bungalovSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review',
       autopopulate: {
-        maxDepth: 1,
+        maxDepth: 2,
       },
     },
   ],
