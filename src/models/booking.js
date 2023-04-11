@@ -51,6 +51,10 @@ class Booking {
   get isReviewed() {
     return this.review !== null
   }
+
+  get isCompleted() {
+    return new Date(this.checkOutDate) < new Date()
+  }
 }
 
 bookingSchema.loadClass(Booking)
