@@ -52,7 +52,6 @@ router.delete('/:bookingId', async function (req, res, next) {
   res.sendStatus(200)
 })
 
-// TODO update a booking
 router.put('/:bookingId', async function (req, res, next) {
   // TODO: check user is booking owner
 
