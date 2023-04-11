@@ -11,7 +11,7 @@ router.post('/', async function (req, res, next) {
 
   if (!user) return res.status(404).send('User not found')
 
-  const review = await user.review(booking, req.body.rating, req.body.comment)
+  const review = await user.review(booking, req.body.rating, req.body.text)
 
   res.send(review)
 })
