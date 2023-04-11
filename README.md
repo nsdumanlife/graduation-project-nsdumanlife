@@ -1,13 +1,14 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-f4981d0f882b2a3f0472912d15f9806d57e124e0fc890972558857b51b24a6f9.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=10556985)
-# Coyotiv School of Software Engineering
-
-## Node & PlantUML Starter Template
-
----
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Now you can directly work in your browser!
+# Bungaa
+
+## Bungalov booking app
+
+Bungaa is a bungalow booking app. After the pandemic, bungalows became very popular in my local area. Bungaa provides users with easy access to lovely bungalows.
+
+---
 
 ## Getting started
 
@@ -15,10 +16,10 @@ Now you can directly work in your browser!
 
 > **Note:**
 >
-> - _There is an **index.js** file located under the \*\*\_src_\*\* folder\_
-> - _The **index.js** file, it's already linked with the debugger in your **launch.json**_
+> - _There is an **www** file located under the \*\*\_bin_\*\* folder\_
+> - _The **www** file, it's already linked with the debugger in your **launch.json**_
 
-To run the **index.js** file:
+To run the **www** file:
 
 - with **_node_**, copy and enter one of the following commands on your terminal:
 
@@ -29,7 +30,7 @@ To run the **index.js** file:
   or:
 
   ```sh
-  node src/index.js
+  node ./bin/www
   ```
 
 - in development mode that restarts every time you save a file:
@@ -42,12 +43,7 @@ To run the **index.js** file:
 
 > **Note:**
 >
-> - There is a **class.puml** example file located in the **_architecture_** folder.
-
-To start working **_\*.puml_** files:
-
-- You can continue by editing the **class.puml** file
-- Add additional **_\*.puml_** files on that folder too.
+> - There is a **class.puml** file located in the **_architecture_** folder.
 
 If you what to visualize a preview of the **class.puml** file or another **_\*.puml_** file on the project, please select the file and on your keyboard press the following keys:
 
@@ -55,10 +51,6 @@ If you what to visualize a preview of the **class.puml** file or another **_\*.p
 
 - _Linux/Windows_: **Alt + D**
   The above commands will automatically open your a window and will show you live any updates that you make on the file.
-
----
-
-_Now that we are ready, let's have some coding fun!_
 
 ---
 
