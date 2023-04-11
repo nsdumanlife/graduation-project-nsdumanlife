@@ -7,7 +7,7 @@ const Bungalov = require('./models/bungalov')
 
 axios.defaults.baseURL = 'http://localhost:3000'
 
-console.log('Bungaa is a booking bungalov app')
+console.log('Bungaa is a bungalov booking app')
 
 async function main() {
   // await User.deleteMany()
@@ -97,12 +97,12 @@ async function main() {
   })
 
   // throws error brcause of booking is not completed, so keep it commented
-  // const firstReview = await axios.post('/reviews', {
-  //   user: armagan.data._id,
-  //   booking: armagansBooking.data._id,
-  //   rating: 5,
-  //   text: 'This is a great bungalov',
-  // })
+  const firstReview = await axios.post('/reviews', {
+    user: armagan.data._id,
+    booking: armagansBooking.data._id,
+    rating: 5,
+    text: 'This is a great bungalov',
+  })
 }
 
 main().catch(console.error)

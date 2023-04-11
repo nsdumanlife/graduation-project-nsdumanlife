@@ -13,6 +13,6 @@ block content
         ul
           li #{review.text}
           p Rating: #{review.rating} - #{review.author.name}
-          p #{review.createdAt}
+          p #{review.createdAt.toDateString()}
     else
       p No reviews yet

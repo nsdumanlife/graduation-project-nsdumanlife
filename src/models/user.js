@@ -99,12 +99,12 @@ class User {
     return booking
   }
 
-  async review(booking, rating, comment) {
+  async review(booking, rating, text) {
     //check if booking is in this.bookings
     if (!this === booking.user) throw new Error('You cannot review a booking that is not yours')
 
     // check if booking is in the past
-    if (!booking.isCompleted) throw new Error('You cannot review a booking that is not completed')
+    // if (!booking.isCompleted) throw new Error('You cannot review a booking that is not completed')
 
     //check if booking is not reviewed
     if (booking.isReviewed) throw new Error('You cannot review a booking that is already reviewed')
@@ -112,10 +112,10 @@ class User {
     //check if rating is between 1 and 5
     if (rating < 1 || rating > 5) throw new Error('Rating must be between 1 and 5')
 
-    //check if comment is not empty
-    if (comment === '') throw new Error('Comment cannot be empty')
+    //check if text is not empty
+    if (text === '') throw new Error('text cannot be empty')
 
-    const review = await Review.create({ bungalov: booking.bungalov, rating: rating, text: comment, author: this })
+    const review = await Review.create({ bungalov: booking.bungalov, rating: rating, text: text, author: this })
 
     const bungalov = booking.bungalov
 
