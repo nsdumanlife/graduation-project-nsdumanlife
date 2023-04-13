@@ -1,11 +1,11 @@
 const axios = require('axios')
 
-const User = require('./models/user')
-const Booking = require('./models/booking')
-const Review = require('./models/review')
-const Bungalov = require('./models/bungalov')
+// const User = require('./models/user')
+// const Booking = require('./models/booking')
+// const Review = require('./models/review')
+// const Bungalov = require('./models/bungalov')
 
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = 'http://api:3000'
 
 console.log('Bungaa is a bungalov booking app')
 
