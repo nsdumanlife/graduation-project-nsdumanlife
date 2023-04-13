@@ -19,3 +19,12 @@ services:
       - 27017:27017
     volumes:
       - ./data:/data/db
+
+  tests:
+    image: bungaa-api
+    depends_on:
+      - api
+    volumes:
+      - ./src/test.js:/app/src/test.js
+
+    command: node src/test.js
