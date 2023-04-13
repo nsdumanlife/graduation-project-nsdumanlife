@@ -33,7 +33,7 @@ const bungalovSchema = new mongoose.Schema({
 })
 
 class Bungalov {
-  get avarageRating() {
+  get averageRating() {
     const totalRating = this.reviews.reduce((total, review) => total + review.rating, 0)
     return totalRating / this.reviews.length
   }
