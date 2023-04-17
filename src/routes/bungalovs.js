@@ -8,9 +8,7 @@ const User = require('../models/user')
 router.get('/', async function (req, res, next) {
   const bungalovs = await Bungalov.find()
 
-  if (req.query.view === 'json') res.send(bungalovs)
-
-  res.render('bungalovs', { bungalovs })
+  res.send(bungalovs)
 })
 
 // get a bungalov
@@ -19,9 +17,7 @@ router.get('/:bungalovId', async function (req, res, next) {
 
   if (!bungalov) return res.status(404).send('Bungalov not found')
 
-  if (req.query.view === 'json') return res.send(bungalov)
-
-  res.render('bungalov-detail', { bungalov })
+  res.send(bungalov)
 })
 
 // create a bungalov

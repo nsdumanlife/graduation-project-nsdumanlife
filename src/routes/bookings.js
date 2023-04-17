@@ -10,27 +10,23 @@ const booking = require('../models/booking')
 router.get('/', async function (req, res, next) {
   const bookings = await Booking.find()
 
-  if (req.query.view === 'json') return res.send(bookings)
-
-  res.render('bookings', { bookings })
+  res.send(bookings)
 })
 
 // get boookings list for a user with a given name
-router.get('/:userId', async function (req, res, next) {
-  const user = await User.findById(req.params.userId)
+router.get('/:bookingId', async function (req, res, next) {
+  const booking = await Booking.findById(req.params.bookingId)
 
-  if (!user) return res.status(404).send('User not found')
+  if (!booking) return next({ status: 404, meesage: 'Booking not found' })
 
-  if (req.query.view === 'json') return res.send(user.bookings)
-
-  res.render('bookings', { user: user })
+  res.send(booking)
 })
 
 // create a booking for a bungalov by a user
 router.post('/', async function (req, res, next) {
   const user = await User.findById(req.body.user)
 
-  if (!user) return res.status(404).send('User not found')
+  if (!user) return next({ status: 404, meesage: 'User not found' })
 
   const bungalov = await Bungalov.findById(req.body.bungalov)
 
@@ -43,25 +39,25 @@ router.post('/', async function (req, res, next) {
 router.delete('/:bookingId', async function (req, res, next) {
   const booking = await Booking.findById(req.params.bookingId)
 
-  if (!booking) return res.status(404).send('Booking not found')
+  if (!booking) return next({ status: 404, meesage: 'Booking not found' })
 
   await booking.user.cancelBooking(booking)
-
-  if (!booking) return res.status(404).send('Booking not found')
 
   res.sendStatus(200)
 })
 
 router.put('/:bookingId', async function (req, res, next) {
-  // TODO: check user is booking owner
+  const booking = await Booking.findById(req.params.bookingId)
+
+  if (!booking) return next({ status: 404, meesage: 'Booking not found' })
+
+  if (res.body.user != booking.user) return next({ status: 403, meesage: 'User is not booking owner' })
 
   const updatedBooking = await Booking.findByIdAndUpdate(
     req.params.bookingId,
     { checkInDate: req.body.checkInDate, checkOutDate: req.body.checkOutDate },
     { new: true }
   )
-
-  if (!booking) return res.status(404).send('Booking not found')
 
   res.send(updatedBooking)
 })

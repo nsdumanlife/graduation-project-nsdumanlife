@@ -16,15 +16,8 @@ const bookingSchema = new mongoose.Schema({
       maxDepth: 2,
     },
   },
-  checkInDate: Date,
-  checkOutDate: Date,
-  review: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review',
-    autopopulate: {
-      maxDepth: 1,
-    },
-  },
+  checkInDate: String,
+  checkOutDate: String,
   review: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Review',

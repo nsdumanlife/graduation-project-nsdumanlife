@@ -12,7 +12,7 @@ router.get('/', async function (req, res, next) {
 router.get('/:userId', async function (req, res, next) {
   const user = await User.findById(req.params.userId)
 
-  if (!user) throw new Error('User not found')
+  if (!user) return next({ status: 404, message: 'User not found' })
 
   res.send(user)
 })
