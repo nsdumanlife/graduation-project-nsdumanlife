@@ -6,7 +6,10 @@ const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
 const userSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    type: String,
+    required: true,
+  },
   bookings: [
     {
       type: mongoose.Schema.Types.ObjectId,
@@ -29,21 +32,19 @@ const userSchema = new mongoose.Schema({
 
 class User {
   async book(bungalov, checkInDate, checkOutDate) {
-    const checkInDateAsDate = new Date(checkInDate)
-    const checkOutDateAsDate = new Date(checkOutDate)
-
     // check dates
-    if (checkInDateAsDate >= checkOutDateAsDate) throw new Error('Check in date must be before check out date')
-    if (checkInDateAsDate < new Date()) throw new Error('Check in date must be in the future')
-    if (checkOutDateAsDate < new Date()) throw new Error('Check out date must be in the future')
+    if (new Date(checkInDate) >= new Date(checkOutDate))
+      throw new Error('The check in date must be before the check out date')
+    if (checkInDate < new Date()) throw new Error('Check in date must be in the future')
+    if (checkOutDate < new Date()) throw new Error('Check out date must be in the future')
 
-    // if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
+    if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
 
     const booking = await Booking.create({
       user: this,
       bungalov: bungalov,
-      checkInDate: checkInDateAsDate,
-      checkOutDate: checkOutDateAsDate,
+      checkInDate: checkInDate,
+      checkOutDate: checkOutDate,
     })
 
     this.bookings.push(booking)
@@ -53,20 +54,6 @@ class User {
     await bungalov.save()
 
     return booking
-  }
-
-  get profile() {
-    return `
-      ##Name: ${this.name}
-      ${this.bungalovs.length > 0 ? `Bungalovs: ${this.bungalovs.map(bungalov => bungalov.name).join(', ')}` : ''}
-      ##Bookings:
-        ${this.bookings
-          .map(
-            booking =>
-              `- ${booking.bungalov.name}  -  ${booking.checkInDate} - ${booking.checkOutDate} ${booking.duration} nights - $${booking.totalPrice}`
-          )
-          .join(',\n\t')}
-      `
   }
 
   async createBungalov(name, price, location) {

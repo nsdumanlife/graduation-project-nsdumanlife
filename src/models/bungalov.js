@@ -2,14 +2,24 @@ const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
 const bungalovSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
-  location: String,
+  name: {
+    type: String,
+    required: true,
+  },
+  price: {
+    type: Number,
+    min: 0,
+    required: true,
+  },
+  location: {
+    type: String,
+    required: true,
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     autopopulate: {
-      maxDepth: 2,
+      maxDepth: 1,
     },
   },
   bookings: [
@@ -17,7 +27,7 @@ const bungalovSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Booking',
       autopopulate: {
-        maxDepth: 2,
+        maxDepth: 1,
       },
     },
   ],
@@ -26,7 +36,7 @@ const bungalovSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Review',
       autopopulate: {
-        maxDepth: 2,
+        maxDepth: 1,
       },
     },
   ],
