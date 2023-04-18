@@ -2,14 +2,16 @@ services:
   api:
     image: bungaa-api
     build:
-      context: .
+      context: backend
       dockerfile: Dockerfile
     depends_on:
       - mongodb
     ports:
       - 3000:3000
     volumes:
-      - ./src:/app/src
+      - ./backend/src:/app/src
+    env_file:
+      - ./backend/.env
     environment:
       - MONGODB_CONNECTION_STRING=mongodb://mongodb:27017/bungaa
 
@@ -20,11 +22,13 @@ services:
     volumes:
       - ./data:/data/db
 
-  tests:
-    image: bungaa-api
-    depends_on:
-      - api
+  frontend:
+    image: bungaa-frontend
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - 5173:5173
     volumes:
-      - ./src/test.js:/app/src/test.js
-
-    command: node src/test.js
+      - ./frontend/src:/app/src
+      - ./frontend/public:/app/public
