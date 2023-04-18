@@ -27,10 +27,10 @@ async function main() {
     name: 'willBeDeletedUserName',
   })
 
-  const allUsers = await axios.get('/users')
+  // const allUsers = await axios.get('/users')
   // console.log('all users: ', allUsers.data)
 
-  const getUser = await axios.get(`/users/${numan.data._id}`)
+  // const getUser = await axios.get(`/users/${numan.data._id}`)
   // console.log('get user: ', getUser.data)
 
   // delete user willBeDeletedUser
@@ -85,24 +85,24 @@ async function main() {
   await axios.delete(`/bookings/${numansBooking.data._id}`)
 
   // update a booking for a user
-  const updatedArmagansBooking = await axios.put(`/bookings/${armagansBooking.data._id}`, {
-    checkInDate: '2024-01-11',
-    checkOutDate: '2024-01-13',
-  })
+  // const updatedArmagansBooking = await axios.put(`/bookings/${armagansBooking.data._id}`, {
+  //   checkInDate: '2024-01-11',
+  //   checkOutDate: '2024-01-13',
+  // })
   // console.log('updated armagansBooking: ', updatedArmagansBooking.data)
 
   // update a bungalov for a user
-  const updatedArmagansBungalov = await axios.put(`/bungalovs/${armagansBungalov.data._id}`, {
-    price: 300,
-  })
+  // const updatedArmagansBungalov = await axios.put(`/bungalovs/${armagansBungalov.data._id}`, {
+  //   price: 300,
+  // })
 
   // throws error brcause of booking is not completed, so keep it commented
-  const firstReview = await axios.post('/reviews', {
-    user: armagan.data._id,
-    booking: armagansBooking.data._id,
-    rating: 5,
-    text: 'This is a great bungalov',
-  })
+  // const firstReview = await axios.post('/reviews', {
+  //   user: armagan.data._id,
+  //   booking: armagansBooking.data._id,
+  //   rating: 5,
+  //   text: 'This is a great bungalov',
+  // })
 }
 
 main().catch(console.error)
