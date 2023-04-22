@@ -21,6 +21,11 @@ const router = createRouter({
       path: '/bungalovs',
       name: 'bungalovs',
       component: () => import('../views/BungalovsView.vue')
+    },
+    {
+      path: '/bungalovs/:id',
+      name: 'bungalov',
+      component: () => import('../views/BungalovView.vue')
     }
   ]
 })
