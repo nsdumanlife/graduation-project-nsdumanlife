@@ -53,7 +53,7 @@
 			"dotenv/config"
 		],
 		"setupFilesAfterEnv": [
-			"./src/tests/setup.js"
+			"./tests/setup.js"
 		]
 	}
 }
