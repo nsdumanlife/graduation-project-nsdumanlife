@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-
+const generateDescription = require('../lib/generate-description')
 const Bungalov = require('../models/bungalov')
 const User = require('../models/user')
 
@@ -24,7 +24,12 @@ router.get('/:bungalovId', async function (req, res, next) {
 router.post('/', async function (req, res, next) {
   const user = await User.findById(req.body.user)
 
-  const bungalov = await user.createBungalov(req.body.name, req.body.price, req.body.location)
+  const description = await generateDescription({
+    name: req.body.name,
+    location: req.body.location,
+  })
+
+  const bungalov = await user.createBungalov(req.body.name, req.body.price, req.body.location, description)
 
   res.send(bungalov)
 })

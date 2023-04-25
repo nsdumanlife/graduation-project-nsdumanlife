@@ -57,8 +57,14 @@ class User {
     return booking
   }
 
-  async createBungalov(name, price, location) {
-    const bungalov = await Bungalov.create({ name: name, price: price, location: location, owner: this })
+  async createBungalov(name, price, location, description) {
+    const bungalov = await Bungalov.create({
+      name: name,
+      price: price,
+      location: location,
+      owner: this,
+      description: description,
+    })
     this.bungalovs.push(bungalov)
 
     await this.save()
