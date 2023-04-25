@@ -17,10 +17,14 @@ async function main() {
 
   const numan = await axios.post('/users', {
     name: 'Numan',
+    email: 'numan@gmail.com',
+    password: '123456',
   })
 
   const armagan = await axios.post('/users', {
     name: 'Armagan',
+    email: 'armagan@coyotiv.com',
+    password: '123456',
   })
 
   const willBeDeletedUser = await axios.post('/users', {
