@@ -1,5 +1,26 @@
-<script setup>
+<script>
 import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
+import { useAccountStore } from './stores/account'
+
+import { mapActions, mapState } from 'pinia'
+export default {
+  name: 'App',
+  components: {
+    HelloWorld,
+    RouterLink,
+    RouterView
+  },
+  computed: {
+    ...mapState(useAccountStore, ['user'])
+  },
+  methods: {
+    ...mapActions(useAccountStore, ['fetchUser', 'logout'])
+  },
+  async mounted() {
+    await this.fetchUser()
+  }
+}
 </script>
 
 <template>
@@ -8,6 +29,9 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/bungalovs">Bungalovs</RouterLink>
+        <RouterLink v-if="!user" to="/login">Log in</RouterLink>
+        <RouterLink v-if="!user" to="/signup">Sign up</RouterLink>
+        <a v-if="user" @click="logout">Log out</a>
       </nav>
     </div>
   </header>
