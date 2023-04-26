@@ -2,7 +2,7 @@ import axios from 'axios'
 import { defineStore } from 'pinia'
 
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:3000'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 export const useAccountStore = defineStore('account', {
   state: () => ({
