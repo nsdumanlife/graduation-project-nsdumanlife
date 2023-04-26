@@ -14,6 +14,8 @@ ADD .prettierrc.json /app/.prettierrc.json
 ADD index.html /app/index.html
 ADD vite.config.js /app/vite.config.js
 ADD vitest.config.js /app/vitest.config.js
+ADD src /app/src
+ADD public /app/public
 
 #run npm start
 CMD [ "npm", "run", "dev" ]
