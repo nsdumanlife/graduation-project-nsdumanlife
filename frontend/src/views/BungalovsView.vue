@@ -2,6 +2,8 @@
 import axios from 'axios'
 import Counter from '../components/Counter.vue'
 
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
+
 export default {
   name: 'BungalovsView',
   components: {
@@ -13,7 +15,7 @@ export default {
     }
   },
   async created() {
-    const { data: bungalovs } = await axios.get('http://localhost:3000/bungalovs')
+    const { data: bungalovs } = await axios.get('/bungalovs')
 
     this.bungalovs = bungalovs
   }

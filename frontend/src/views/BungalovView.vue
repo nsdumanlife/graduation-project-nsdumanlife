@@ -1,5 +1,6 @@
 <script>
 import axios from 'axios'
+axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 export default {
   name: 'BungalovView',
@@ -9,9 +10,7 @@ export default {
     }
   },
   async created() {
-    const { data: bungalov } = await axios.get(
-      `http://localhost:3000/bungalovs/${this.$route.params.id}`
-    )
+    const { data: bungalov } = await axios.get(`/bungalovs/${this.$route.params.id}`)
     this.bungalov = bungalov
   }
 }
