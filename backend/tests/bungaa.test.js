@@ -1,11 +1,11 @@
 const request = require('supertest')
-const app = require('../app')
+const app = require('../src/app')
 const chance = require('chance').Chance()
 
-const User = require('../models/user')
-const Bungalov = require('../models/bungalov')
-const Booking = require('../models/booking')
-const Review = require('../models/review')
+const User = require('../src/models/user')
+const Bungalov = require('../src/models/bungalov')
+const Booking = require('../src/models/booking')
+const Review = require('../src/models/review')
 
 describe('Bungaa API', () => {
   beforeEach(async () => {
