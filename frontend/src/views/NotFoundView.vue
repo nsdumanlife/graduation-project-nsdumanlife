@@ -11,9 +11,15 @@ export default {
 
 <template lang="pug">
 .container
-  .row
-    .col
-      h1 404 Not Found
-      p The page you are looking for does not exist.
-      RouterLink(to='/') Go back to home page.
+  .not-found
+    h1 404 Not Found
+    p The page you are looking for does not exist.
+    RouterLink(to='/') Go back to home page.
 </template>
+
+<style scoped>
+.container {
+  margin-top: 2rem;
+  text-align: center;
+}
+</style>
