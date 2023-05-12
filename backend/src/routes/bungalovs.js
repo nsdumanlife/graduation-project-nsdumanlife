@@ -24,12 +24,20 @@ router.get('/:bungalovId', async function (req, res, next) {
 router.post('/', async function (req, res, next) {
   const user = await User.findById(req.body.user)
 
-  const description = await generateDescription({
-    name: req.body.name,
-    location: req.body.location,
-  })
+  // const description = await generateDescription({
+  //   name: req.body.name,
+  //   location: req.body.location,
+  // })
 
-  const bungalov = await user.createBungalov(req.body.name, req.body.price, req.body.location, description)
+  const bungalov = await user.createBungalov(
+    req.body.name,
+    req.body.price,
+    req.body.location,
+    req.body.description,
+    req.body.capacity,
+    req.body.images,
+    req.body.amenities
+  )
 
   res.send(bungalov)
 })
