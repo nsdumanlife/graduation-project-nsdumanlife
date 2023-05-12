@@ -26,7 +26,7 @@ header.container-header
     .logo
       RouterLink(to='/')  Bungaa
     .search-bar
-      input(type='text' placeholder='Search')
+      //- input(type='text' placeholder='Search')
     nav
       RouterLink(to='/') Home
       RouterLink(v-if='!user' to='/login') Log in
