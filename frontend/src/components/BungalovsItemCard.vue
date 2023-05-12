@@ -42,7 +42,7 @@ export default {
   .card-body
     h5.card-title
       .card-name {{ bungalovName }}
-      i
+      .card-rating-container
         IconRating
         .card-rating 4.54{{ bungalov.averageRating }}
     p.card-text {{ bungalov.location }}
@@ -77,7 +77,7 @@ img {
   align-items: center;
 }
 
-i {
+.card-rating-container {
   display: flex;
   align-items: center;
 }
