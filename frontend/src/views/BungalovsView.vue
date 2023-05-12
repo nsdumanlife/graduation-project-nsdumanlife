@@ -1,13 +1,17 @@
 <script>
 import axios from 'axios'
-import Counter from '../components/Counter.vue'
+// import Counter from '../components/Counter.vue'
+import { mapActions } from 'pinia'
+import BungalovsItemCard from '../components/BungalovsItemCard.vue'
+import { useBungalovStore } from '../stores/bungalov'
 
 axios.defaults.baseURL = import.meta.env.VITE_API_URL
 
 export default {
   name: 'BungalovsView',
   components: {
-    Counter
+    // Counter,
+    BungalovsItemCard
   },
   data() {
     return {
@@ -15,22 +19,29 @@ export default {
     }
   },
   async created() {
-    const { data: bungalovs } = await axios.get('/bungalovs')
-
-    this.bungalovs = bungalovs
+    this.bungalovs = await this.fetchBungalovs()
+  },
+  methods: {
+    ...mapActions(useBungalovStore, ['fetchBungalovs']),
+    navigateToBungalov(bungalovId) {
+      this.$router.push(`/bungalovs/${bungalovId}`)
+    }
   }
 }
 </script>
 
 <template lang="pug">
 .bungalovs
-  h1 Bungalovs
-  ul
-    li(v-for='bungalov in bungalovs' :key='bungalov._id')
-      RouterLink(:to="`/bungalovs/${bungalov._id}`") {{ bungalov.name }} at {{ bungalov.location }} ${{ bungalov.price }}
-
-  Counter(name='counter 1')
-  Counter(name='counter 2')
+  .row.row-cols-1.row-cols-sm-2.row-cols-md-2.row-cols-lg-3.row-cols-xl-4.row-cols-xxl-5
+    .col.g-4.bungalov-item(v-for='bungalov in bungalovs' :key='bungalov._id'  )
+      BungalovsItemCard(:bungalov='bungalov' @click="navigateToBungalov(`${bungalov._id}`)" )
 </template>
 
-<style></style>
+<style lang="scss" scoped>
+.bungalov-item {
+  margin-bottom: 0.5rem;
+}
+.container {
+  margin: 0;
+}
+</style>
