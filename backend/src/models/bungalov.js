@@ -19,6 +19,29 @@ const bungalovSchema = new mongoose.Schema({
     type: String,
     default: '',
   },
+  capacity: {
+    type: Number,
+    min: 1,
+    required: true,
+  },
+  images: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Image',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
+  ],
+  amenities: [
+    // {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'Amenity',
+    //   autopopulate: {
+    //     maxDepth: 1,
+    //   },
+    // },
+  ],
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
