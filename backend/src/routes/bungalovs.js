@@ -15,21 +15,21 @@ router.get('/', async function (req, res, next) {
 router.get('/:bungalovId', async function (req, res, next) {
   const bungalov = await Bungalov.findById(req.params.bungalovId)
 
-  if (!bungalov) return res.status(404).send('Bungalov not found')
+  if (!bungalov) return next({ status: 404, message: 'Bungalov not found' })
 
   res.send(bungalov)
 })
 
 // create a bungalov
 router.post('/', async function (req, res, next) {
-  const user = await User.findById(req.body.user)
-
   // const description = await generateDescription({
   //   name: req.body.name,
   //   location: req.body.location,
   // })
 
-  const bungalov = await user.createBungalov(
+  if (!req.user) return next({ status: 404, message: 'User not found' })
+
+  const bungalov = await req.user.createBungalov(
     req.body.name,
     req.body.price,
     req.body.location,
