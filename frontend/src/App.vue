@@ -1,13 +1,10 @@
 <script>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView } from 'vue-router'
 import TheHeader from './components/TheHeader.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld,
-    RouterLink,
     RouterView,
     TheHeader
   }
