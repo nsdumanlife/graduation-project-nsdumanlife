@@ -8,6 +8,9 @@ export const useBungalovStore = defineStore('bungalov', {
   actions: {
     async fetchBungalovs() {
       return (await axios.get('/bungalovs')).data
+    },
+    async fetchBungalov(id) {
+      return (await axios.get(`/bungalovs/${id}`)).data
     }
   }
 })
