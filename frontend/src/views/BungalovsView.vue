@@ -15,11 +15,14 @@ export default {
   },
   data() {
     return {
-      bungalovs: []
+      bungalovs: [],
+      loading: false
     }
   },
   async created() {
+    this.loading = true
     this.bungalovs = await this.fetchBungalovs()
+    this.loading = false
   },
   methods: {
     ...mapActions(useBungalovStore, ['fetchBungalovs']),
@@ -31,6 +34,8 @@ export default {
 </script>
 
 <template lang="pug">
+.spinner-border(v-if='loading' role="status")
+  span.visually-hidden Loading...
 .bungalovs
   .row.row-cols-1.row-cols-sm-2.row-cols-md-2.row-cols-lg-3.row-cols-xl-4.row-cols-xxl-5
     .col.g-4.bungalov-item(v-for='bungalov in bungalovs' :key='bungalov._id'  )
@@ -38,6 +43,12 @@ export default {
 </template>
 
 <style lang="scss" scoped>
+.spinner-border {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 .bungalov-item {
   margin-bottom: 0.5rem;
 }

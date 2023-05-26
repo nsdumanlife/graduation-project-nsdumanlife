@@ -5,6 +5,8 @@ const passport = require('passport')
 const User = require('../models/user')
 
 router.get('/session', async (req, res, next) => {
+  if (!req.user) return next({ status: 401, message: 'Unauthorized' })
+
   res.send(req.user)
 })
 

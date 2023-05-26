@@ -41,5 +41,9 @@ export default {
 .register {
   max-width: 400px;
   margin: 0 auto;
+
+  button {
+    margin-top: 20px;
+  }
 }
 </style>

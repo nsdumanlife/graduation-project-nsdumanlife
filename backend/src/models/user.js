@@ -33,14 +33,6 @@ const userSchema = new mongoose.Schema({
 
 class User {
   async book(bungalov, checkInDate, checkOutDate) {
-    // check dates
-    if (new Date(checkInDate) >= new Date(checkOutDate))
-      throw new Error('The check in date must be before the check out date')
-    if (checkInDate < new Date()) throw new Error('Check in date must be in the future')
-    if (checkOutDate < new Date()) throw new Error('Check out date must be in the future')
-
-    if (!bungalov.isAvailable(checkInDate, checkOutDate)) throw new Error('Bungalov is not available for these dates')
-
     const booking = await Booking.create({
       user: this,
       bungalov: bungalov,
@@ -77,9 +69,6 @@ class User {
   }
 
   async cancelBooking(booking) {
-    //check if booking is in this.bookings
-    if (!this === booking.user) throw new Error('You cannot cancel a booking that is not yours')
-
     // cancel booking
     await Booking.findByIdAndDelete(booking._id)
 

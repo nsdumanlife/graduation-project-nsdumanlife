@@ -75,7 +75,7 @@ app.use((req, res, next) => {
   req.session.history = req.session.history || []
   req.session.history.push({ url: req.url, ip: req.ip })
 
-  console.log('Session: ', req.session)
+  // console.log('Session: ', req.session)
 
   next()
 })
@@ -106,7 +106,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500)
-  res.send(err)
+  res.send({ error: err })
 })
 
 module.exports = app
