@@ -27,11 +27,8 @@ export default {
   },
   methods: {
     ...mapActions(useBookingStore, ['bookBungalov']),
-    openBookingModal() {
-      this.showGuestsModal = true
-    },
-    closeBookingModal() {
-      this.showGuestsModal = false
+    toggleGuestModal() {
+      this.showGuestsModal = !this.showGuestsModal
     },
     async doBookBungalov() {
       try {
@@ -58,26 +55,21 @@ div
       .booking-dates.check-out
         label.form-label(for="check-out") Check Out
         input#check-out.form-control(type="date" v-model="checkOutDate" required)
-      .booking-guests(@click="!showGuestsModal")
+      .booking-guests(@click="toggleGuestModal")
         label.form-label(for="guests") Guests
         p.form-label {{ adults }} adults and {{ children }} children
+        .modal-guests(v-if="showGuestsModal")
+          .guests-modal
+            .adults
+              label.form-label(for="adults") Adults
+              input#adults.form-control(type="number" v-model="adults" min="1" :max="bungalov.capacity")
+            .children
+              label.form-label(for="children") Children
+              input#children.form-control(type="number" v-model="children" min="0" :max="bungalov.capacity")
       button.btn.btn-outline-info(type='submit') Book Now
       .price-total
         h5.card-title Total: {{ !bookingPrice ? bungalov.price : bookingPrice }} $
       .error(v-if="error !== null") {{ error }}
-    .modal-guets(v-show='showGuestsModal')
-      .adults
-        p Adults
-        .adults-buttons
-          button(@click='adults--') -
-          span {{ adults }}
-          button(@click='adults++') +
-      .children
-        p Children
-        .children-buttons
-          button(@click='children--') -
-          span {{ children }}
-          button(@click='children++') +
 </template>
 
 <style lang="scss" scoped>
