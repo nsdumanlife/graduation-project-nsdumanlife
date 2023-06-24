@@ -29,6 +29,7 @@ header.container-header
       //- input(type='text' placeholder='Search')
     nav
       RouterLink(to='/') Home
+      RouterLink(v-if='user' to='/my-bookings') Bookings
       RouterLink(v-if='!user' to='/login') Log in
       RouterLink(v-if='!user' to='/signup') Sign up
       a(v-if='user' @click='logout') Log out
@@ -41,8 +42,8 @@ header {
 }
 
 .wrapper {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   margin: 0 auto;
   padding: 20px 40px;
@@ -108,5 +109,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-} */
+}*/
 </style>
