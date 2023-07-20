@@ -44,7 +44,7 @@ export default {
       .card-name {{ bungalovName }}
       .card-rating-container
         IconRating
-        .card-rating 4.54{{ bungalov.averageRating }}
+        .card-rating {{ bungalov.averageRating || 0}}
     p.card-text {{ bungalov.location }}
     div
       span.card-price ${{ bungalov.price }}
