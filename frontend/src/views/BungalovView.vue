@@ -29,6 +29,9 @@ export default {
     },
     hasReviews() {
       return this.bungalov.reviews?.length > 0
+    },
+    reviewPluralization() {
+      return this.bungalov.reviews?.length > 1 ? 'reviews' : 'review'
     }
   },
   methods: {
@@ -51,10 +54,10 @@ main(v-else)
     .header-details
       .rating-container
         IconRating
-        span.rating {{ bungalov.rating || 5 }}
+        span.rating {{ bungalov.averageRating || 0 }}
         span.seperator •
       .reviews
-        span {{ bungalov.reviews?.length || 0 }} reviews
+        span {{ bungalov.reviews?.length || 0 }} {{ reviewPluralization  }}
         span.seperator •
       .location
         span {{ bungalov.location }}
