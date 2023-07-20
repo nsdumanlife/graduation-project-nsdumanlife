@@ -1,43 +1,44 @@
 const mongoose = require('mongoose')
 const autopopulate = require('mongoose-autopopulate')
 
-const bookingSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    autopopulate: {
-      maxDepth: 1,
+const bookingSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
+    bungalov: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Bungalov',
+      autopopulate: {
+        maxDepth: 1,
+      },
+    },
+    checkInDate: String,
+    checkOutDate: String,
+    review: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+      autopopulate: {
+        maxDepth: 1,
+      },
+      default: null,
     },
   },
-  bungalov: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Bungalov',
-    autopopulate: {
-      maxDepth: 2,
+  {
+    toObject: {
+      virtuals: true,
     },
-  },
-  checkInDate: String,
-  checkOutDate: String,
-  review: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Review',
-    autopopulate: {
-      maxDepth: 1,
+    toJSON: {
+      virtuals: true,
     },
-    default: null,
-  },
-})
+  }
+)
 
 class Booking {
-  // review = null
-
-  // constructor(user, bungalov, checkInDate, checkOutDate) {
-  //   this.user = user
-  //   this.bungalov = bungalov
-  //   this.checkInDate = checkInDate
-  //   this.checkOutDate = checkOutDate
-  // }
-
   get duration() {
     const checkInDateAsDate = new Date(this.checkInDate)
     const checkOutDateAsDate = new Date(this.checkOutDate)

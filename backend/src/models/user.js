@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Booking',
       autopopulate: {
-        maxDepth: 1,
+        maxDepth: 2,
       },
     },
   ],
@@ -87,21 +87,6 @@ class User {
   }
 
   async review(booking, rating, text) {
-    //check if booking is in this.bookings
-    if (!this === booking.user) throw new Error('You cannot review a booking that is not yours')
-
-    // check if booking is in the past
-    // if (!booking.isCompleted) throw new Error('You cannot review a booking that is not completed')
-
-    //check if booking is not reviewed
-    if (booking.isReviewed) throw new Error('You cannot review a booking that is already reviewed')
-
-    //check if rating is between 1 and 5
-    if (rating < 1 || rating > 5) throw new Error('Rating must be between 1 and 5')
-
-    //check if text is not empty
-    if (text === '') throw new Error('text cannot be empty')
-
     const review = await Review.create({ bungalov: booking.bungalov, rating: rating, text: text, author: this })
 
     const bungalov = booking.bungalov

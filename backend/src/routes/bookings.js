@@ -17,7 +17,7 @@ router.get('/all', async function (req, res, next) {
 
 // get bookings for a user
 router.get('/', async function (req, res, next) {
-  const bookings = await Booking.find(req.user)
+  const bookings = await Booking.find({ user: req.user._id })
 
   if (!bookings) return next({ status: 404, meesage: 'Bookings not found' })
 
