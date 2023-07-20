@@ -14,7 +14,7 @@ const bookingSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Bungalov',
       autopopulate: {
-        maxDepth: 1,
+        maxDepth: 2,
       },
     },
     checkInDate: String,
