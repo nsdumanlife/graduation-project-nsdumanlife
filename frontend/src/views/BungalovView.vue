@@ -1,6 +1,7 @@
 <script>
 import { mapActions } from 'pinia'
 import BookCard from '../components/BookCard.vue'
+import ReviewCard from '../components/ReviewCard.vue'
 import IconRating from '../components/icons/IconRating.vue'
 import { useBungalovStore } from '../stores/bungalov'
 
@@ -8,7 +9,8 @@ export default {
   name: 'BungalovView',
   components: {
     IconRating,
-    BookCard
+    BookCard,
+    ReviewCard
   },
   data() {
     return {
@@ -57,8 +59,9 @@ main(v-else)
         span.rating {{ bungalov.averageRating || 0 }}
         span.seperator •
       .reviews
-        span {{ bungalov.reviews?.length || 0 }} {{ reviewPluralization  }}
-        span.seperator •
+        a(href="#reviews")
+          span {{ bungalov.reviews?.length || 0 }} {{ reviewPluralization  }}
+          span.seperator •
       .location
         span {{ bungalov.location }}
   .gallery-container
@@ -73,9 +76,9 @@ main(v-else)
         h2 Amenities
         ul
           li(v-for='amenity in bungalov.amenities') {{ amenity }}
-      .reviews
+      .reviews#reviews
         h2 Reviews
-        p(v-if="hasReviews") {{ bungalov.reviews }} reviews
+        ReviewCard(v-if="hasReviews" v-for='review in bungalov.reviews' :key='review._id' :review='review')
         p(v-else) No reviews yet
     .actions
       BookCard(:bungalov="bungalov")
