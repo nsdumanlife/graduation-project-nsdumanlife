@@ -64,7 +64,7 @@ const bungalovSchema = new mongoose.Schema(
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review',
         autopopulate: {
-          maxDepth: 1,
+          maxDepth: 2,
         },
       },
     ],
