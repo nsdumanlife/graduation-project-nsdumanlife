@@ -14,4 +14,4 @@ RUN npm install
 ADD bin ./bin
 
 #run npm start
-CMD [ "nodemon" ]
+CMD [ "npm", "run", "dev" ]
