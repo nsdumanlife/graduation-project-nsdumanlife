@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useAccountStore } from '../stores/account'
 import BungalovsView from '../views/BungalovsView.vue'
 
 const router = createRouter({
@@ -22,7 +23,10 @@ const router = createRouter({
     {
       path: '/my-bookings',
       name: 'my-bookings',
-      component: () => import('../views/MyBookingsView.vue')
+      component: () => import('../views/MyBookingsView.vue'),
+      meta: {
+        requiresAuth: true
+      }
     },
     {
       path: '/login',
@@ -40,6 +44,13 @@ const router = createRouter({
       component: () => import('../views/NotFoundView.vue')
     }
   ]
+})
+
+router.beforeEach(async (to) => {
+  const store = useAccountStore()
+  await store.fetchUser()
+
+  if (to.meta.requiresAuth && !store.user) return '/login'
 })
 
 export default router
