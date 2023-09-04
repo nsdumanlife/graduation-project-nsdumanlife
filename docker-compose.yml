@@ -35,10 +35,10 @@ services:
       - ./frontend/src:/app/src
       - ./frontend/public:/app/public
 
-  example-api-calls:
-    image: bungaa-api
-    depends_on:
-      - api
-    volumes:
-      - ./backend/src/example-api-calls.js:/app/backend/src/example-api-calls.js
-    command: node ./backend/src/example-api-calls.js
+  # example-api-calls:
+  #   image: bungaa-api
+  #   depends_on:
+  #     - api
+  #   volumes:
+  #     - ./backend/src/example-api-calls.js:/app/backend/src/example-api-calls.js
+  # command: node ./backend/src/example-api-calls.js
